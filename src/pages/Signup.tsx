@@ -4,8 +4,10 @@ import { ArrowLeft, Mail, Github, Eye, EyeOff, User, Lock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { useAuth } from '../contexts/AuthContext';
 
 const Signup = () => {
+  const { login } = useAuth();
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -30,14 +32,38 @@ const Signup = () => {
     // Simulate API call
     setTimeout(() => {
       console.log('Signup submitted:', formData);
+      
+      // Mock user data - in real app this would come from your auth API
+      const userData = {
+        id: '1',
+        name: formData.fullName,
+        email: formData.email,
+        credits: 50 // New users get 50 free credits
+      };
+      
+      login(userData);
       setIsLoading(false);
-      // Redirect to dashboard or login
+      
+      // Redirect to dashboard
+      window.location.href = '/dashboard';
     }, 1500);
   };
 
   const handleGithubSignup = () => {
     console.log('GitHub signup clicked');
-    // Handle GitHub OAuth
+    
+    // Mock GitHub signup - in real app this would integrate with GitHub OAuth
+    const userData = {
+      id: '2',
+      name: 'GitHub User',
+      email: 'github@example.com',
+      githubUsername: 'githubuser',
+      credits: 50,
+      avatar: 'https://avatars.githubusercontent.com/u/1?v=4'
+    };
+    
+    login(userData);
+    window.location.href = '/dashboard';
   };
 
   return (

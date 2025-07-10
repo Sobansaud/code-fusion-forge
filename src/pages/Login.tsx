@@ -4,8 +4,10 @@ import { ArrowLeft, Mail, Github, Eye, EyeOff, Lock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { useAuth } from '../contexts/AuthContext';
 
 const Login = () => {
+  const { login } = useAuth();
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -28,14 +30,38 @@ const Login = () => {
     // Simulate API call
     setTimeout(() => {
       console.log('Login submitted:', formData);
+      
+      // Mock user data - in real app this would come from your auth API
+      const userData = {
+        id: '1',
+        name: 'John Doe',
+        email: formData.email,
+        credits: 100
+      };
+      
+      login(userData);
       setIsLoading(false);
+      
       // Redirect to dashboard
+      window.location.href = '/dashboard';
     }, 1500);
   };
 
   const handleGithubLogin = () => {
     console.log('GitHub login clicked');
-    // Handle GitHub OAuth
+    
+    // Mock GitHub login - in real app this would integrate with GitHub OAuth
+    const userData = {
+      id: '2',
+      name: 'GitHub User',
+      email: 'github@example.com',
+      githubUsername: 'githubuser',
+      credits: 100,
+      avatar: 'https://avatars.githubusercontent.com/u/1?v=4'
+    };
+    
+    login(userData);
+    window.location.href = '/dashboard';
   };
 
   const handleForgotPassword = () => {
